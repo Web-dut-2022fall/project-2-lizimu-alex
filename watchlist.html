@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Your Watchlist{% endblock %}
+
+{% block body %}
+<h2>Your watchlist</h2>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for listing in watchlist %}
+        <div class="col mb-4">
+            {% if listing.active %}
+            <div class="card text-white bg-dark mb-3 h-100">
+                <img src="{{listing.image}}" class="card-img-top" style="width: 100%; height:15vw; object-fit:cover;"
+                    alt="Listing photo">
+                <div class="card-header text-truncate h5">{{listing.title}}</div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">USD {{listing.price}}</h6>
+                    <p class="card-text text-truncate">{{listing.description}}</p>
+                    <a href="{% url 'listing' listing.id %}" class="btn btn-outline-secondary">View</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Created {{listing.date}}
+                </div>
+            </div>
+            {% else %}
+            <div class="card text-white bg-danger mb-3 h-100">
+                <img src="{{listing.image}}" class="card-img-top" style="width: 100%; height:15vw; object-fit:cover;"
+                    alt="Listing photo">
+                <div class="card-header text-truncate h5">{{listing.title}}</div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">USD {{listing.price}}</h6>
+                    <p class="card-text text-truncate">{{listing.description}}</p>
+                    <a href="{% url 'listing' listing.id %}" class="btn btn-outline-secondary">View</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Created {{listing.date}}<span class="badge bg-secondary text-light ml-2">Closed</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>There are no listings in your watchlist.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
